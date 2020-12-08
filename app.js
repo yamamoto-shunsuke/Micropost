@@ -17,9 +17,6 @@ const signupRouter = require('./routes/signup');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/accounts/signup', signupRouter);
-
 app.use(flash());
 
 // view engine setup
@@ -29,6 +26,7 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false })); 
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
@@ -44,6 +42,10 @@ app.use(session({
   resave: 'true',
   secret: 'secret'
 }));
+
+
+app.use('/', indexRouter);
+app.use('/accounts/signup', signupRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

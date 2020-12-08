@@ -7,7 +7,7 @@ var knex = require('knex')({
     host: 'localhost',
     user: 'root',
     password: 'root',
-    database: 'profileapp'
+    database: 'micropost'
   },
   useNullAsDefault: true
 });
@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) {
 
 
 router.post("/", async (req, res, next) => {
-  const name = req.body.username;
+  const username = req.body.username;
   const email = req.body.email;
   const password = req.body.password;
   const confirm = req.body.confirm;
@@ -33,13 +33,13 @@ router.post("/", async (req, res, next) => {
 
   const hashedPassword = await bcrypt.hash(password, 10);
   knex
-  .insert({ name: name, email: email, password: hashedPassword })
+  .insert({ name: username, email: email, password: hashedPassword })
   .into('users')
   .then(function (rows) {
       res.redirect('/');
     })
     .catch(function (error) {
-      reject(error);
+      console.log(error);
     });
 
 });
