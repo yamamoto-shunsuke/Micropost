@@ -2,6 +2,8 @@
 <html>
 
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
       integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <%- include('header') %>
@@ -12,7 +14,7 @@
       <div class="container col-md-9">
         <div class="jumbotron text-center">
           <h1><%= title %></h1>
-          <form action="/signup" method="get" class="task-form">
+          <form action="/accounts/signup" method="get" class="task-form">
             <input class="btn btn-primary" type="submit" value="Sign up now!" />
           </form>
         </div>

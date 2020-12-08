@@ -1,3 +1,4 @@
+const createError = require('http-errors');
 const express = require('express');
 const flash = require("connect-flash");
 const bodyParser = require("body-parser");
@@ -12,8 +13,9 @@ const app = express();
 const sessionStore = new session.MemoryStore;
 
 const indexRouter = require('./routes/index');
+const signupRouter = require('./routes/signup');
 
-app.use('/', indexRouter);
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(flash());
 
@@ -24,14 +26,14 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false })); 
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-//app.use(...loginRouter.initialize());
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
 
-//　セッション情報設定 追加部分ここから                                                                                               
+//　セッション情報設定                                                                                             
 app.use(cookieParser('secret'));
 app.use(session({
   cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },
@@ -40,6 +42,10 @@ app.use(session({
   resave: 'true',
   secret: 'secret'
 }));
+
+
+app.use('/', indexRouter);
+app.use('/accounts/signup', signupRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
