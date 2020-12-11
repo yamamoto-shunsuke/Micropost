@@ -1,7 +1,8 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const app = express();
+const router = express.Router();
 //var { authenticate } = require("./login");
-var knex = require('knex')({
+const knex = require('knex')({
   client: 'mysql',
   connection: {
     host: 'localhost',
@@ -11,6 +12,10 @@ var knex = require('knex')({
   },
   useNullAsDefault: true
 });
+
+app.use('/', require('index'));
+app.use('/accounts/signup', require('./routes/signup'));
+app.use('/accounts/signin', require('./routes/signin'));
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -22,4 +27,4 @@ router.post("/", (req, res, next) => {
 
 });
 
-module.exports = router;
+module.exports = app,router;

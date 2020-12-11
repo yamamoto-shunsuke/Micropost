@@ -12,9 +12,6 @@ const logger = require('morgan');
 const app = express();
 const sessionStore = new session.MemoryStore;
 
-const indexRouter = require('./routes/index');
-const signupRouter = require('./routes/signup');
-
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(flash());
@@ -30,8 +27,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
+
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(require('./routes'));
 
 //　セッション情報設定                                                                                             
 app.use(cookieParser('secret'));
@@ -44,8 +44,7 @@ app.use(session({
 }));
 
 
-app.use('/', indexRouter);
-app.use('/accounts/signup', signupRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
