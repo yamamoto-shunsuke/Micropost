@@ -1,21 +1,13 @@
 const express = require('express');
 const { authenticate } = require("./passport");
 const router = express.Router();
-const knex = require('knex')({
-  client: 'mysql',
-  connection: {
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    database: 'micropost'
-  },
-  useNullAsDefault: true
-});
+const knexfile = require("../knexfile.js");
+const knex = require("knex")(knexfile.development);
 
 router.get('/', function(req, res, next) {
-  res.render('signin', { title: "Sign in Page" });
+  res.render('signin', { title: "Sign in Page" ,message: req.flash("message"),isLoggedIn: req.isAuthenticated()});
 });
 
-router.post("/login", authenticate());
+router.post("/", authenticate());
 
 module.exports = router;

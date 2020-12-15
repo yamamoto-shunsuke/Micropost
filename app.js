@@ -31,8 +31,6 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(require('./routes'));
-
 //　セッション情報設定                                                                                             
 app.use(cookieParser('secret'));
 app.use(session({
@@ -43,8 +41,9 @@ app.use(session({
   secret: 'secret'
 }));
 
-
-
+app.use('/', require('./routes/index'));
+app.use('/accounts/signup', require('./routes/signup'));
+app.use('/accounts/signin', require('./routes/signin'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -4,27 +4,19 @@ const bcrypt = require("bcrypt");
 const router = express.Router();
 const LocalStrategy = require("passport-local").Strategy;
 let initialize, authenticate, authorize;
-const knex = require('knex')({
-  client: 'mysql',
-  connection: {
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    database: 'profileapp'
-  },
-  useNullAsDefault: true
-});
+const knexfile = require("../knexfile.js");
+const knex = require("knex")(knexfile.development);
 
 
 //サーバからクライアントに保存する処理
-passport.serializeUser((user_name, done) => {
-  done(null, user_name);
+passport.serializeUser((email, done) => {
+  done(null, email);
 });
 
 
 //クライアントからサーバに復元する処理
-passport.deserializeUser((user_name, done) => {
-  done(null, user_name);
+passport.deserializeUser((email, done) => {
+  done(null, email);
 });
 
 //ユーザー名とパスワードを利用した認証
@@ -32,21 +24,21 @@ passport.use(
   "local-strategy",
   new LocalStrategy(
     {
-      usernameField: "username",
+      usernameField: "email",
       passwordField: "password",
       passReqToCallback: true,
     },
-    (req, user_name, password, done) => {
+    (req, email, password, done) => {
       req.session.password = req.body.password;
       knex("users")
-        .where({ user_name: user_name })
+        .where({ email: email })
         .then(async function (rows) {
           if (rows != "") {
             const comparedPassword = await bcrypt.compare(password, rows[0].password);
             if (comparedPassword) {
-              req.session.user_name = user_name;
+              req.session.email = email;
               req.session.user_id = rows[0].id;
-              done(null, user_name);
+              done(null, email);
             } else {
               done(
                 null,
@@ -84,7 +76,7 @@ authenticate = function () {
   return passport.authenticate(
     "local-strategy", {
     successRedirect: "/",
-    failureRedirect: "/login"
+    failureRedirect: "/accounts/signin"
   }
   );
 };
