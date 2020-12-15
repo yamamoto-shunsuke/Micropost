@@ -33,10 +33,12 @@ passport.use(
       knex("users")
         .where({ email: email })
         .then(async function (rows) {
+          console.log(rows);
           if (rows != "") {
             const comparedPassword = await bcrypt.compare(password, rows[0].password);
             if (comparedPassword) {
               req.session.email = email;
+              req.session.user_name = rows[0].name;
               req.session.user_id = rows[0].id;
               done(null, email);
             } else {

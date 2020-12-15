@@ -12,6 +12,18 @@ const logger = require('morgan');
 const app = express();
 const sessionStore = new session.MemoryStore;
 
+
+
+//　セッション情報設定                                                                                             
+app.use(cookieParser('secret'));
+app.use(session({
+  cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },
+  store: sessionStore,
+  saveUninitialized: true,
+  resave: 'true',
+  secret: 'secret'
+}));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(flash());
@@ -23,23 +35,12 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(bodyParser.urlencoded({ extended: false })); 
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-//　セッション情報設定                                                                                             
-app.use(cookieParser('secret'));
-app.use(session({
-  cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },
-  store: sessionStore,
-  saveUninitialized: true,
-  resave: 'true',
-  secret: 'secret'
-}));
 
 app.use('/', require('./routes/index'));
 app.use('/accounts/signup', require('./routes/signup'));

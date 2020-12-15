@@ -12,12 +12,27 @@
   <body>
     <div class="border-bottom mt-4">
       <div class="container col-md-9">
-        <div class="jumbotron text-center">
-          <h1><%= title %></h1>
-          <form action="/accounts/signup" method="get" class="task-form">
-            <input class="btn btn-primary" type="submit" value="Sign up now!" />
+        <h1>
+          <%= title %>
+        </h1>
+        <% if(user_name) { %>
+          <form action="/" method="post">
+            <h2>
+              <%= user_name %>
+            </h2>
+            <h5><a href="/users/<%=user_id %>">View My Profile</a></h5>
+            <h5>Introduction</h5><br>
+            <p><textarea name="content" cols="49" rows="5"></textarea></p>
+            <input class="btn btn-primary col-sm-5" type="submit" value="Post" />
+            <br>
+            <br>
+            <textarea readonly cols="50" rows="10"><%= contentList[user_id - 1].content %></textarea>
           </form>
-        </div>
+          <% }else{ %>
+            <form action="/accounts/signup" method="get" class="task-form">
+              <input class="btn btn-primary" type="submit" value="Sign up now!" />
+            </form>
+            <% } %>
       </div>
     </div>
     <%- include('partials/bootstrap.ejs'); %>
