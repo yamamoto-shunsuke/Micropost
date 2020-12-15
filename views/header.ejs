@@ -13,22 +13,46 @@
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <div class="container col-md-7">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item"><a class="nav-link text-white" href="/">MicroPost</a></li>
           </ul>
         </div>
+        <% if(isLoggedIn) { %>
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item"><a class="nav-link" href="/login"><i class="fas fa-sign-in-alt"> Sign in</i></a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="/users"><i class="fas fa-users">Users</i></a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Account
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/users/<%=user_id %>"><i class="fas fa-user-cog">Profile</i></a>
+              <a class="dropdown-item" href="/accounts/edit"><i class="fas fa-cog">Settings</i></a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt">Logout</i></a>
+            </div>
+          </li>
+        </ul>
+        <% }else{ %>
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item"><a class="nav-link" href="/accounts/signin"><i class="fas fa-sign-in-alt"> Sign
+                in</i></a></li>
         </ul>
       </div>
+      <% } %>
     </nav>
 
   </head>
 
   <body>
-
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <%- include('partials/bootstrap.ejs'); %>
   </body>
 
 </html>

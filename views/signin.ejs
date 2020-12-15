@@ -13,19 +13,11 @@
     <div class="border-bottom mb-5">
       <div class="container">
         <h1 style="text-align:center"><%= title %></h1>
-        <form action="/accounts/signup" method="post" class="board-form">
-          <div class="form-group">
-            <div align="center">
-              <label for="username" class="col-sm-8 col-form-label">
-                <h5>Username</h4>
-              </label>
-              <input required type="text" id="username" name="username" class="col-sm-6 form-control" />
-            </div>
-          </div>
+        <form method="POST" action="/accounts/signin">
           <div class="form-group">
             <div align="center">
               <label for="email" class="col-sm-8 col-form-label">
-                <h5>Email</h4>
+                <h4>Email</h4>
               </label>
               <input required type="text" id="email" name="email" class="col-sm-6 form-control" />
             </div>
@@ -33,25 +25,18 @@
           <div class="form-group">
             <div align="center">
               <label for="password" class="col-sm-8 col-form-label">
-                <h5>Password</h4>
+                <h4>Password</h4>
               </label>
-              <input required type="text" id="password" name="password" class="col-sm-6 form-control" />
+              <input required type="password" id="password" name="password" class="col-sm-6 form-control" />
             </div>
           </div>
           <div class="form-group">
-            <div align="center">
-              <label for="confirm" class="col-sm-8 col-form-label">
-                <h5>Confirmation</h4>
-              </label>
-              <input required type="text" id="password" name="confirm" class="col-sm-6 form-control" />
+            <div class="col-form-label" align="center">
+              <input type="submit" class="btn btn-primary col-sm-6" value="Sign in" />
             </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-2 col-form-label"></div>
-            <div align="center">
-              <input class="btn btn-primary col-sm-6" type="submit" value="Sign Up">
-            </div>
-          </div>
+            <% if (message && message.length !== 0) { %>
+            <div class="alert alert-danger"><%= message %></div>
+            <% } %>
         </form>
       </div>
     </div>

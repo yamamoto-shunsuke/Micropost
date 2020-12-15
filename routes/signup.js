@@ -1,19 +1,11 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const bcrypt = require("bcrypt");
-var knex = require('knex')({
-  client: 'mysql',
-  connection: {
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    database: 'micropost'
-  },
-  useNullAsDefault: true
-});
+const knexfile = require("../knexfile.js");
+const knex = require("knex")(knexfile.development);
 
 router.get('/', function(req, res, next) {
-  res.render('signup', { title: "Sign up" });
+  res.render('signup', { title: "Sign up" ,isLoggedIn: req.isAuthenticated()});
 });
 
 
