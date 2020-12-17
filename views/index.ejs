@@ -12,10 +12,10 @@
   <body>
     <div class="border-bottom mt-4">
       <div class="container col-md-9">
-        <h1>
-          <%= title %>
-        </h1>
         <% if(user_name) { %>
+          <h1>
+            <%= title %>
+          </h1>
           <form action="/" method="post">
             <h2>
               <%= user_name %>
@@ -29,9 +29,16 @@
             <textarea readonly cols="50" rows="10"><%= contentList[user_id - 1].content %></textarea>
           </form>
           <% }else{ %>
-            <form action="/accounts/signup" method="get" class="task-form">
-              <input class="btn btn-primary" type="submit" value="Sign up now!" />
-            </form>
+            <div align="center">
+              <div class="jumbotron">
+                <h1>
+                  <%= title %>
+                </h1>
+                <form action="/accounts/signup" method="get" class="task-form">
+                  <input class="btn btn-primary" type="submit" value="Sign up now!" />
+                </form>
+              </div>
+            </div>
             <% } %>
       </div>
     </div>

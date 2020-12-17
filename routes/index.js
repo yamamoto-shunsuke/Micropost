@@ -3,6 +3,9 @@ const router = express.Router();
 const knexfile = require("../knexfile.js");
 const knex = require("knex")(knexfile.development);
 
+router.use('/accounts/signup', require('./signup'));
+router.use('/accounts/signin', require('./signin'));
+
 /* GET home page. */
 router.get('/', function (req, res, next) {
   console.log(req.isAuthenticated());
