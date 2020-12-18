@@ -8,8 +8,8 @@ router.use('/accounts/signin', require('./signin'));
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  console.log(req.isAuthenticated());
   if (req.isAuthenticated()) {
+    console.log(req.user.email);
     knex('microposts')
       .then(function (rows) {
         const content = rows;
