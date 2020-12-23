@@ -10,38 +10,83 @@
   </head>
 
   <body>
-    <div class="border-bottom mt-4">
-      <div class="container col-md-9">
-        <% if(user_name) { %>
-          <h1>
-            <%= title %>
-          </h1>
-          <form action="/" method="post">
-            <h2>
-              <%= user_name %>
-            </h2>
-            <h5><a href="/users/<%=user_id %>">View My Profile</a></h5>
-            <p><textarea name="content" placeholder="Compose new micropost..." cols="49" rows="5"></textarea></p>
-            <input class="btn btn-primary col-sm-5" type="submit" value="Post" />
-            <br>
-            <br>
-            <textarea readonly cols="50" rows="10"><%= contentList[user_id - 1].content %></textarea>
-          </form>
-          <% }else{ %>
-            <div align="center">
-              <div class="jumbotron">
-                <h1>
-                  <%= title %>
-                </h1>
-                <form action="/accounts/signup" method="get" class="task-form">
-                  <input class="btn btn-primary" type="submit" value="Sign up now!" />
-                </form>
-              </div>
+    <div class="mt-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 ">
+            <% if(user_name) { %>
+              <h1>
+                <%= title %>
+              </h1>
+              <form action="/" method="post">
+                <h2>
+                  <%= user_name %>
+                </h2>
+                <h5><a href="/users/<%=user_id %>">View My Profile</a></h5>
+                <div class="row">
+                  <div class="col-sm-1">
+                    <h5>26</h5>
+                  </div>
+                  <div class="col-sm-6">
+                    <h5>microposts</h5>
+                  </div>
+                  <div class="col-sm-6">
+                    <h5>1</h5>
+                  </div>
+                  <div class="col-sm-6">
+                    <h5>2</h5>
+                  </div>
+                  <div class="col-sm-6">
+                    <h5>Following</h5>
+                  </div>
+                  <div class="col-sm-6">
+                    <h5>Followers</h5>
+                  </div>
+                </div>
+                <textarea name="content" placeholder="Compose new micropost..." cols="50" rows="4"></textarea>
+                <br>
+                <input class="btn btn-primary col-sm-8" type="submit" value="Post" />
+                <br>
+                <br>
+              </form>
+          </div>
+          <div class="col-sm-6">
+            <div class="border-bottom mb-3">
+              <h3>Micropost Feed</h3>
             </div>
-            <% } %>
+            <% contentList.forEach(function(contentItem) { %>
+              <div class="border-bottom mb-5">
+                <h5><a href="accounts/<%=user_id %>">
+                    <%= user_name %>
+                  </a></h5>
+                <p>
+                  <%= contentItem.content %>
+                </p>
+                <p>
+                  <font color="gray">Posted ago.</font>
+                </p>
+                <input class="btn btn-primary" type="submit" value="delete">
+              </div>
+              <% }); %>
+          </div>
+        </div>
       </div>
     </div>
-    <%- include('partials/bootstrap.ejs'); %>
+    <% }else{ %>
+      <div align="center">
+          <div class="row">
+            <div class="jumbotron">
+              <h1>
+                <%= title %>
+              </h1>
+              <form action="/accounts/signup" method="get" class="task-form">
+                <input class="btn btn-primary" type="submit" value="Sign up now!" />
+              </form>
+            </div>
+          </div>
+      </div>
+      <% } %>
+        <%- include('partials/bootstrap.ejs'); %>
   </body>
 
 </html>

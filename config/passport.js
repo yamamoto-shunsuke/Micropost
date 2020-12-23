@@ -75,10 +75,10 @@ module.exports = function (app) {
 
   //クライアントからサーバに復元する処理
   //セッションの有効期間中は常に機能する。req.userに値を入れる。
-  passport.deserializeUser((id, done) => {
+  passport.deserializeUser( async function (id, done) {
     console.log("deserialize");
     try {
-      const user = User.findById(id);
+      const user = await User.findById(id);
       done(null, user);
     } catch (error) {
       done(error, null);
