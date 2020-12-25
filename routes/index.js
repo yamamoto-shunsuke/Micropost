@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const knexfile = require("../knexfile.js");
-const { where } = require('../models/user.js');
 const knex = require("knex")(knexfile.development);
 
 router.use('/accounts/signup', require('./signup'));
 router.use('/accounts/signin', require('./signin'));
+router.use('/logout', require('./logout'));
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
