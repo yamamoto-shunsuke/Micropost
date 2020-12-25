@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>
+      <%= title %>
+    </title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <%- include('header') %>
+  </head>
+
+  <body>
+    <h1 style="text-align:center">
+      <%= title %>
+    </h1>
+    <% userlist.forEach(function(contentItem) { %>
+      <div class="container">
+        <p></p><a href="/users/<%= contentItem.id %>">&nbsp; <%= contentItem.name %></a></p>
+        <p><a href="/delete">delete</a></p>
+      </div>
+      <% }); %>
+        <%- include('partials/bootstrap.ejs'); %>
+  </body>
+
+</html>
