@@ -28,7 +28,14 @@ router.post("/", async (req, res, next) => {
   .insert({ name: username, email: email, password: hashedPassword })
   .into('users')
   .then(function (rows) {
+    const id = rows[0];
+    knex
+    .insert({ content: " ",user_id: id})
+    .into('microposts')
+    .then(function(rows){
+      req.session.id++
       res.redirect('/');
+    })
     })
     .catch(function (error) {
       console.log(error);
