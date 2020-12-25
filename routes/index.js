@@ -7,6 +7,7 @@ router.use('/accounts/signup', require('./signup'));
 router.use('/accounts/signin', require('./signin'));
 router.use('/logout', require('./logout'));
 router.use('/accounts/edit', require('./edit'));
+router.use('/users', require('./users'));
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
