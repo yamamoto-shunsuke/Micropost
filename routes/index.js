@@ -8,6 +8,8 @@ router.use('/accounts/signin', require('./signin'));
 router.use('/logout', require('./logout'));
 router.use('/accounts/edit', require('./edit'));
 router.use('/users', require('./users'));
+router.use('/users', require('./profile'));
+router.use('/delete', require('./delete'));
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -37,9 +39,5 @@ router.post("/", (req, res, next) => {
       res.redirect("/");
     });
 });
-
-router.post("/delete", (req, res, next) => {
-
-})
 
 module.exports = router;
