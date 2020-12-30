@@ -1,61 +1,41 @@
 <!DOCTYPE html>
 <html lang="ja">
 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <%- include('header') %>
-  </head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+            integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <%- include('header') %>
+    </head>
 
-  <body>
-    <div class="border-bottom mb-5">
-      <div class="container">
-        <h1 style="text-align:center"><%= title %></h1>
-        <form action="/accounts/signup" method="post" class="board-form">
-          <div class="form-group">
-            <div align="center">
-              <label for="username" class="col-sm-8 col-form-label">
-                <h5>Username</h4>
-              </label>
-              <input required type="text" id="username" name="username" class="col-sm-6 form-control" />
+    <body>
+        <div class="border-bottom mb-5">
+            <div class="container col-sm-6">
+                <h1 class="text-center">
+                    <%= title %>
+                </h1>
+                <form action="/accounts/signup" method="post" class="board-form">
+                        <h5>Username</h4>
+                    <input required type="text" id="username" name="username" class="col-sm-12 form-control" />
+                    <br>
+                        <h5>Email</h4>
+                    <input required type="text" id="email" name="email" class="col-sm-12 form-control" />
+                    <br>
+                        <h5>Password</h4>
+                    <input required type="password" id="password" name="password" class="col-sm-12 form-control" />
+                    <br>
+                        <h5>Confirmation</h4>
+                    <input required type="password" id="confirm" name="confirm" class="col-sm-12 form-control" />
+                    <br>
+                    <div align="center">
+                        <input class="btn btn-primary col-sm-12 mb-5" type="submit" value="Sign Up">
+                    </div>
+                    <br>
+                </form>
             </div>
-          </div>
-          <div class="form-group">
-            <div align="center">
-              <label for="email" class="col-sm-8 col-form-label">
-                <h5>Email</h4>
-              </label>
-              <input required type="text" id="email" name="email" class="col-sm-6 form-control" />
-            </div>
-          </div>
-          <div class="form-group">
-            <div align="center">
-              <label for="password" class="col-sm-8 col-form-label">
-                <h5>Password</h4>
-              </label>
-              <input required type="text" id="password" name="password" class="col-sm-6 form-control" />
-            </div>
-          </div>
-          <div class="form-group">
-            <div align="center">
-              <label for="confirm" class="col-sm-8 col-form-label">
-                <h5>Confirmation</h4>
-              </label>
-              <input required type="text" id="password" name="confirm" class="col-sm-6 form-control" />
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-2 col-form-label"></div>
-            <div align="center">
-              <input class="btn btn-primary col-sm-6" type="submit" value="Sign Up">
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-    <%- include('partials/bootstrap.ejs'); %>
-  </body>
+        </div>
+        <%- include('partials/bootstrap.ejs'); %>
+    </body>
 
 </html>

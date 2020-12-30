@@ -58,9 +58,6 @@
               </form>
           </div>
           <div class="col-sm-6">
-            <div class="border-bottom mb-3">
-              <h3>Micropost Feed</h3>
-            </div>
             <% contentList.forEach(function(contentItem) { %>
               <div class="border-bottom mb-3">
                 <div class="row">
@@ -70,10 +67,7 @@
                     </a>
                     <br>
                     <br>
-                    <form action="/delete/<%= contentItem.id %>" method="POST">
-                    <input type="hidden" name="id" value="<%= contentItem.id %>">
                     <input class="btn btn-primary" type="submit" value="delete">
-                    </form>
                   </div>
                   <div class="col-sm-10">
                     <h5><a href="/users/<%=user_id %>">
