@@ -9,12 +9,12 @@ router.get("/", function (req, res, next) {
   req.session.array_user_name = [];
   knex
     .from("users")
-    .innerJoin("relationships", "users.id", "relationships.following_id")
+    .innerJoin("relationships", "users.id", "relationships.followed_id")
     .then(function (rows) {
-      if (req.session.followed_id !== 0 && req.session.following_id !== 0) {
+      if (req.session.followed_id !== 0 && req.session.followed_id !== 0) {
         for (let i = 0; i < rows.length; i++) {
           if (req.session.location === rows[i].followed_id) {
-            req.session.array_user_id[i] = rows[i].following_id;
+            req.session.array_user_id[i] = rows[i].followed_id;
             req.session.array_user_name[i] = rows[i].user_name;
           }
         }
