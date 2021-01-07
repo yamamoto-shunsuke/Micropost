@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <%- include('header',{user_name: user_name, user_id: user_id}) %>
+      <title>Follows</title>
+  </head>
+
+  <body>
+    <div class="border-bottom">
+      <div class="container">
+        <h1 class="text-center">
+          <%= title %>
+        </h1>
+        <div class="row">
+          <div class="col-sm-6">
+            <form action="/" method="post">
+              <div class="row">
+                <div class="col-sm-2">
+                  <a href="/users/<%=user_id %>"> <img
+                      src="https://ja.gravatar.com/userimage/198854425/da5b60637a0811fde3ed6b701c8473cd.png?size=60" />
+                  </a>
+                </div>
+                <div class="col-sm-10">
+                  <h2>
+                    <%= user_name %>
+                  </h2>
+                  <h5><a href="/users/<%=user_id %>">View My Profile</a></h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-1">
+                  <h5>26</h5>
+                </div>
+                <div class="col-sm-11">
+                  <h5>microposts</h5>
+                </div>
+                <div style="color:gray" class="col-sm-3">
+                  <a href="/users/<%=user_id %>/following">
+                    <h5 style="color:gray">
+                      <%=followed_id %>
+                    </h5>
+                  </a>
+                  <h5>Following</h5>
+                </div>
+                <div style="color:gray" class="col-sm-9">
+                  <a href="/users/<%=user_id %>/followers">
+                    <h5 style="color:gray">
+                      <%=follower_id %>
+                    </h5>
+                  </a>
+                  <h5>Followers</h5>
+                </div>
+              </div>
+          </div>
+          <div class="mt-3">
+            <div class="col-sm-6">
+              <dl>
+                <% for(let follow of follows) { %>
+                  <% if(follow) { %>
+                    <h5>
+                      <a href="/users/<%=follow.following_id %>">
+                        <%= follow.name %>
+                      </a>
+                    </h5>
+                    <br>
+                    <% }; %>
+                      <% }; %>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <br>
+    </div>
+    <%- include('partials/bootstrap.ejs'); %>
+  </body>
+
+</html>
