@@ -10,7 +10,8 @@ router.use('/accounts/edit', require('./edit'));
 router.use('/users', require('./users'));
 router.use('/users', require('./profile'));
 router.use('/delete', require('./delete'));
-router.use('/users/:user_id/following', require('./following'));
+router.use('/users', require('./followers'));
+router.use('/users', require('./following'));
 
 /* GET home page. */
 router.get('/', function (req, res, next) {

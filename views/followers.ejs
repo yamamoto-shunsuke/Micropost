@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
       integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <%- include('header',{user_name: user_name, user_id: user_id}) %>
-      <title>Follows</title>
+      <title>Followers</title>
   </head>
 
   <body>
@@ -59,18 +59,17 @@
           </div>
           <div class="mt-3">
             <div class="col-sm-6">
-              <dl>
-                <% for(let follow of follows) { %>
-                  <% if(follow) { %>
-                    <h5>
-                      <a href="/users/<%=follow.following_id %>">
-                        <%= follow.name %>
-                      </a>
-                    </h5>
-                    <br>
+              <% for(let following of followers) { %>
+                <% if(following) { %>
+                  <h5>
+                    <a href="/users/<%=following.followed_id %>">
+                      <%= following.name %>
+                    </a>
+                  </h5>
+                  <br>
+                  <% }; %>
                     <% }; %>
-                      <% }; %>
-              </dl>
+                      </dl>
             </div>
           </div>
         </div>
