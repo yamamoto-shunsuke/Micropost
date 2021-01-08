@@ -15,37 +15,31 @@ router.use('/users', require('./following'));
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  req.session.count_follower_id = 0;
-  req.session.count_followed_id = 0;
+  let followed_id = 0;
+  let following_id = 0;
   if (req.isAuthenticated()) {
 
     knex
-      .from('microposts')
-      .innerJoin("relationships", "microposts.user_id", "relationships.followed_id")
+      .from("relationships")
+      .join("users", "users.id", "=", "relationships.followed_id")
+      .where({ follower_id: req.user.id })
       .then(function (rows) {
-        for (let i = 0; i < rows.length; i++) {
-          if (req.user.id == rows[i].follower_id) {
-            req.session.count_follower_id++;
-          }
-        }
+        followed_id = rows.length;
       })
 
     knex
-      .from("microposts")
-      .innerJoin("relationships", "microposts.user_id", "relationships.follower_id")
+      .from("relationships")
+      .join("users", "relationships.follower_id", "=", "users.id")
+      .where({ followed_id: req.user.id })
       .then(function (rows) {
-        for (let i = 0; i < rows.length; i++) {
-          if (req.user.id == rows[i].followed_id) {
-            req.session.count_followed_id++;
-          }
-        }
+        following_id = rows.length;
       });
 
     knex('microposts')
       .where('user_id', req.user.id)
       .then(function (rows) {
         const content = rows;
-        res.render('index', { title: "Profile App", isLoggedIn: req.isAuthenticated(), user_id: req.user.id, user_name: req.user.name, contentList: content , followed_id: req.session.count_followed_id, follower_id: req.session.count_follower_id});
+        res.render('index', { title: "Profile App", isLoggedIn: req.isAuthenticated(), user_id: req.user.id, user_name: req.user.name, contentList: content, followed_id: followed_id, follower_id: following_id });
       });
   } else {
     res.render('index', { title: "Welcome to the MicroPost App", isLoggedIn: req.isAuthenticated(), user_name: req.session.name });
