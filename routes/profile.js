@@ -6,53 +6,50 @@ const knex = require("knex")(knexfile.development);
 
 
 router.get('/:user_id', function (req, res, next) {
-  req.session.count_follower_id = 0;
-  req.session.count_followed_id = 0;
-  const location = req.params.user_id;
+  let followed_id = 0;
+  let following_id = 0;
   req.session.isfollow = false;
-  let user_name = null;
-
-  knex('users')
-   .where({ id: req.params.user_id })
-   .then(function(rows){
-     user_name = rows[0].name;
-   })
 
   knex("relationships")
-    .where({ followed_id: req.user.id, follower_id: location })
+    .where({ followed_id: req.user.id, follower_id: req.params.user_id })
     .then(function (rows) {
       if (rows.length >= 1) {
         req.session.isfollow = true;
       }
     });
 
-  knex
-    .from('microposts')
-    .innerJoin("relationships", "microposts.user_id", "relationships.followed_id")
+    knex
+    .from("relationships")
+    .join("users", "users.id", "=","relationships.followed_id")
+    .where({ follower_id: req.params.user_id })
     .then(function (rows) {
-      for (let i = 0; i < rows.length; i++) {
-        if (location == rows[i].follower_id) {
-          req.session.count_follower_id++;
-        }
-      }
+      followed_id = rows.length;
     })
 
-  knex
-    .from("microposts")
-    .innerJoin("relationships", "microposts.user_id", "relationships.follower_id")
+ knex
+    .from("relationships")
+    .join("users", "relationships.follower_id", "=", "users.id")
+    .where({ followed_id: req.params.user_id })
     .then(function (rows) {
-      for (let i = 0; i < rows.length; i++) {
-        if (location == rows[i].followed_id) {
-          req.session.count_followed_id++;
-        }
-      }
+      following_id = rows.length;
     });
 
 
-  knex("microposts")
+  knex
+    .from('users')
+    .join('microposts', 'users.id', '=', 'microposts.user_id')
     .where({ user_id: req.params.user_id })
     .then(function (rows) {
-      res.render("profile", { isLoggedIn: req.isAuthenticated(), user_name: user_name, contentList: rows, user_id: rows[0].id, page_location: location, isotherspage: req.user.id != location, isfollow: req.session.isfollow, followed_id: req.session.count_followed_id, follower_id: req.session.count_follower_id });
+      if(rows.length !== 0){
+        res.render("profile", { isLoggedIn: req.isAuthenticated(), user_name: rows[0].name, contentList: rows, user_id: rows[0].id, page_location: req.params.user_id, isotherspage: req.user.id != req.params.user_id, isfollow: req.session.isfollow, followed_id: following_id, follower_id: followed_id });
+      }else{
+        knex
+          .from('users')
+          .where({ id: req.params.user_id })
+          .then(function (rows) {
+            res.render("profile", { isLoggedIn: req.isAuthenticated(), user_name: rows[0].name, contentList: null, user_id: rows[0].id, page_location: req.params.user_id, isotherspage: req.user.id != req.params.user_id, isfollow: req.session.isfollow, followed_id: following_id, follower_id: followed_id });
+          });
+      }
     });
 })
 
