@@ -5,7 +5,7 @@ const knexfile = require("../knexfile.js");
 const knex = require("knex")(knexfile.development);
 
 router.get('/', function (req, res, next) {
-  res.render('signup', { title: "Sign up", isLoggedIn: req.isAuthenticated() });
+  res.render('signup', { title: "Sign up", isLoggedIn: req.isAuthenticated(), message: null });
 });
 
 
@@ -16,12 +16,27 @@ router.post("/", async (req, res, next) => {
   const confirm = req.body.confirm;
 
   if (password !== confirm) {
-    res.render('signup', {
-      title: "Sign up",
-      pass: 'Password is incorrect'
-    });
+    res.render('signup', { title: "Sign up", isLoggedIn: req.isAuthenticated(), message: "The user name or password is incorrect." });
     return;
   }
+
+  knex('users')
+    .where({ name: username })
+    .then(function (rows) {
+      if (rows.length !== 0) {
+        res.render('signup', { title: "Sign up", isLoggedIn: req.isAuthenticated(), message: "Your username or email address is already registered." });
+        return;
+      }
+    });
+
+  knex('users')
+    .where({ email: email })
+    .then(function (rows) {
+      if (rows.length !== 0) {
+        res.render('signup', { title: "Sign up", isLoggedIn: req.isAuthenticated(), message: "Your username or email address is already registered." });
+        return;
+      }
+    });
 
   const hashedPassword = await bcrypt.hash(password, 10);
   knex
