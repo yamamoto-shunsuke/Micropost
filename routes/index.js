@@ -38,8 +38,7 @@ router.get('/', function (req, res, next) {
     knex('microposts')
       .where('user_id', req.user.id)
       .then(function (rows) {
-        const content = rows;
-        res.render('index', { title: "Profile App", isLoggedIn: req.isAuthenticated(), user_id: req.user.id, user_name: req.user.name, contentList: content, followed_id: followed_id, follower_id: following_id });
+        res.render('index', { title: "Profile App", isLoggedIn: req.isAuthenticated(), user_id: req.user.id, user_name: req.user.name, contentList: rows, microposts: rows.length,followed_id: followed_id, follower_id: following_id });
       });
   } else {
     res.render('index', { title: "Welcome to the MicroPost App", isLoggedIn: req.isAuthenticated(), user_name: req.session.name });

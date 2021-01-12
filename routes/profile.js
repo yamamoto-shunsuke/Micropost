@@ -41,13 +41,13 @@ router.get('/:user_id', function (req, res, next) {
     .where({ user_id: req.params.user_id })
     .then(function (rows) {
       if(rows.length !== 0){
-        res.render("profile", { isLoggedIn: req.isAuthenticated(), user_name: rows[0].name, contentList: rows, user_id: rows[0].id, page_location: req.params.user_id, isotherspage: req.user.id != req.params.user_id, isfollow: req.session.isfollow, followed_id: following_id, follower_id: followed_id });
+        res.render("profile", { isLoggedIn: req.isAuthenticated(), user_name: rows[0].name, contentList: rows, user_id: rows[0].id, page_location: req.params.user_id, isotherspage: req.user.id != req.params.user_id, isfollow: req.session.isfollow, microposts: rows.length, followed_id: following_id, follower_id: followed_id });
       }else{
         knex
           .from('users')
           .where({ id: req.params.user_id })
           .then(function (rows) {
-            res.render("profile", { isLoggedIn: req.isAuthenticated(), user_name: rows[0].name, contentList: null, user_id: rows[0].id, page_location: req.params.user_id, isotherspage: req.user.id != req.params.user_id, isfollow: req.session.isfollow, followed_id: following_id, follower_id: followed_id });
+            res.render("profile", { isLoggedIn: req.isAuthenticated(), user_name: rows[0].name, contentList: null, user_id: rows[0].id, page_location: req.params.user_id, isotherspage: req.user.id != req.params.user_id, isfollow: req.session.isfollow,microposts: rows.length, followed_id: following_id, follower_id: followed_id });
           });
       }
     });
