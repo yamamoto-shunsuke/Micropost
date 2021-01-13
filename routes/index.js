@@ -2,8 +2,7 @@ const express = require('express');
 const router = express.Router();
 const knexfile = require("../knexfile.js");
 const knex = require("knex")(knexfile.development);
-const followers = require('../public/javascripts/followers.js');
-const following = require('../public/javascripts/following.js');
+const relationships = require('../models/relationships');
 
 router.use('/accounts/signup', require('./signup'));
 router.use('/accounts/signin', require('./signin'));
@@ -16,27 +15,32 @@ router.use('/users', require('./followers'));
 router.use('/users', require('./following'));
 
 /* GET home page. */
-router.get('/',function (req, res, next) {
+router.get('/', async function (req, res, next) {
   let followed_id = 0;
+  let following_id = 0;
 
   if (req.isAuthenticated()) {
-    console.log(followers(followed_id));
+    const user_id = req.user.id;
+    const user_name = req.user.name;
 
-    console.log(following); 
+    following_id = await relationships.followers_count(followed_id, user_id);
+
+    followed_id = await relationships.following_count(following_id, user_id);
 
     knex('microposts')
       .where('user_id', req.user.id)
       .then(function (rows) {
-        res.render('index', { title: "Profile App", isLoggedIn: req.isAuthenticated(), user_id: req.user.id, user_name: req.user.name, contentList: rows, microposts: rows.length, followed_id: followed_id, follower_id: following_id });
+        res.render('index', { title: "Profile App", isLoggedIn: req.isAuthenticated(), user_id: user_id, user_name: user_name, contentList: rows, microposts: rows.length, followed_id: followed_id, follower_id: following_id });
       });
   } else {
-    res.render('index', { title: "Welcome to the MicroPost App", isLoggedIn: req.isAuthenticated(), user_name: req.session.name });
+    res.render('index', { title: "Welcome to the MicroPost App", isLoggedIn: req.isAuthenticated(), user_name: false });
   }
 });
 
 router.post("/", (req, res, next) => {
   const user_id = req.user.id;
   const content = req.body.content;
+
   knex
     .insert({ user_id: user_id, content: content })
     .into('microposts')
@@ -47,6 +51,7 @@ router.post("/", (req, res, next) => {
       console.error(error);
       res.redirect("/");
     });
+
 });
 
 module.exports = router;

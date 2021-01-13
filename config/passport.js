@@ -1,6 +1,6 @@
 const passport = require("passport");
-const bcrypt = require("bcrypt");
 const LocalStrategy = require("passport-local").Strategy;
+const bcrypt = require("bcrypt");
 const knexfile = require("../knexfile.js");
 const knex = require("knex")(knexfile.development);
 const session = require('express-session');
