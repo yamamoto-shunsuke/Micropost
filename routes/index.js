@@ -16,16 +16,14 @@ router.use('/users', require('./following'));
 
 /* GET home page. */
 router.get('/', async function (req, res, next) {
-  let followed_id = 0;
-  let following_id = 0;
 
   if (req.isAuthenticated()) {
     const user_id = req.user.id;
     const user_name = req.user.name;
 
-    following_id = await relationships.followers_count(followed_id, user_id);
+    following_id = await relationships.followers_count(user_id);
 
-    followed_id = await relationships.following_count(following_id, user_id);
+    followed_id = await relationships.following_count(user_id);
 
     knex('microposts')
       .where('user_id', req.user.id)
