@@ -38,6 +38,9 @@ router.post("/", async (req, res, next) => {
                 });
             }
           })
+          .catch(function (error) {
+            console.error(error);
+          });
   }
 });
 

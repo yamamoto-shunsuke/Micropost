@@ -28,10 +28,13 @@ router.get('/', async function (req, res, next) {
     knex('microposts')
       .where('user_id', req.user.id)
       .then(function (rows) {
-        res.render('index', { title: "Profile App", isLoggedIn: req.isAuthenticated(), user_id: user_id, user_name: user_name, contentList: rows, microposts: rows.length, followed_id: followed_id, follower_id: following_id });
+        res.render('index', { title: "Profile App", isLoggedIn: req.isAuthenticated(), user_id: user_id, user_name: user_name, contentList: rows, microposts: rows.length, followed_id: followed_id.length, follower_id: following_id.length});
+      })
+      .catch(function (error) {
+        console.log(error);
       });
   } else {
-    res.render('index', { title: "Welcome to the MicroPost App", isLoggedIn: req.isAuthenticated(), user_name: false });
+    res.render('index', { title: "Welcome to the MicroPost App", isLoggedIn: req.isAuthenticated(), user_name: false});
   }
 });
 

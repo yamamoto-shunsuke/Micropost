@@ -8,7 +8,7 @@ async function followers_count(user_id) {
     .join("users", "users.id", "=", "relationships.followed_id")
     .where({ follower_id: user_id })
     .then(function (rows) {
-     return rows.length;
+     return rows;
     });
 
 }
@@ -21,7 +21,7 @@ async function following_count(user_id) {
     .join("users", "relationships.follower_id", "=", "users.id")
     .where({ followed_id: user_id })
     .then(function (rows) {
-      return rows.length;
+      return rows;
     });
 
 }

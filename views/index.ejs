@@ -31,20 +31,26 @@
                 </div>
                 <div class="row">
                   <div class="col-sm-1">
-                    <h5><%=microposts %></h5>
+                    <h5>
+                      <%=microposts %>
+                    </h5>
                   </div>
                   <div class="col-sm-11">
                     <h5>microposts</h5>
                   </div>
                   <div style="color:gray" class="col-sm-3">
                     <a href="/users/<%=user_id %>/following">
-                      <h5 style="color:gray"><%=followed_id %></h5>
+                      <h5 style="color:gray">
+                        <%=followed_id %>
+                      </h5>
                     </a>
                     <h5>Following</h5>
                   </div>
                   <div style="color:gray" class="col-sm-9">
                     <a href="/users/<%=user_id %>/followers">
-                      <h5 style="color:gray"><%=follower_id %></h5>
+                      <h5 style="color:gray">
+                        <%=follower_id %>
+                      </h5>
                     </a>
                     <h5>Followers</h5>
                   </div>
@@ -71,8 +77,8 @@
                     <br>
                     <br>
                     <form action="/delete/<%= contentItem.id %>" method="POST">
-                    <input type="hidden" name="id" value="<%= contentItem.id %>">
-                    <input class="btn btn-primary" type="submit" value="delete">
+                      <input type="hidden" name="id" value="<%= contentItem.id %>">
+                      <input class="btn btn-primary" type="submit" value="delete">
                     </form>
                   </div>
                   <div class="col-sm-10">

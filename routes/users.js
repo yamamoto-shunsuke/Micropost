@@ -9,13 +9,7 @@ router.get('/', function(req, res, next) {
   .select()
   .from("users")
   .then(function (rows) {
-    res.render("users", {
-      title: "All Users",
-      user_name: req.user.name,
-      user_id: req.user.id,
-      userlist: rows,
-      isLoggedIn: req.isAuthenticated()
-    });
+    res.render("users", {title: "All Users",user_name: req.user.name,user_id: req.user.id,userlist: rows,isLoggedIn: req.isAuthenticated()});
   })
   .catch(function (error) {
     console.error(error);
