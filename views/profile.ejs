@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
       integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <%- include('header') %>
+    <% if(typeof error==='undefined' ){ %>
+      <%- include('header') %>
   </head>
 
   <body>
@@ -18,7 +19,7 @@
               <% if(isotherspage){ %>
                 <form action="/users/<%= page_location %>" method="post">
                   <% if(isfollow){ %>
-                    <input class="btn btn-primary col-sm-12" type="submit" value="Remove" />
+                    <input class="btn btn-primary col-sm-12" type="submit" value="UnFollow" />
                     <% } else{ %>
                       <input class="btn btn-primary col-sm-12" type="submit" value="Follow" />
                       <% } %>
@@ -58,7 +59,12 @@
       </div>
     </div>
     </div>
-    <%- include('partials/bootstrap.ejs'); %>
+    <% } else { %>
+      <h1>
+        <%=error %>
+      </h1>
+      <% } %>
+        <%- include('partials/bootstrap'); %>
   </body>
 
 </html>

@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
       integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <%- include('header') %>
+    <% if(typeof error==='undefined' ){ %>
+      <%- include('header') %>
   </head>
 
   <body>
@@ -24,12 +25,20 @@
     </div>
     <% if (message && message.length !==0) { %>
       <% for(let i of message) { %>
-        <div class="alert alert-danger">
+        <div class="alert alert-danger text-center">
           <%= i %>
         </div>
         <% } %>
           <% } %>
-            <%- include('partials/bootstrap.ejs'); %>
+            <% } else { %>
+              <h1>
+                <%=error %>
+              </h1>
+              <% } %>
+                <%- include('partials/bootstrap'); %>
   </body>
 
 </html>
+
+<meta>
+</meta>

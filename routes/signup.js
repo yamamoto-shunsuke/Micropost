@@ -34,10 +34,13 @@ router.post("/", async (req, res, next) => {
                   res.redirect('/');
                 })
                 .catch(function (error) {
-                  console.log(error);
+                  res.render('signup', { error: error});
                 });
             }
           })
+          .catch(function (error) {
+            res.render('signup', { error: error});
+          });
   }
 });
 
