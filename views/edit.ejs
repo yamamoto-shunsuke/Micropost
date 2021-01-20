@@ -24,12 +24,12 @@
     </div>
     <% if (message && message.length !==0) { %>
       <% for(let i of message) { %>
-        <div class="alert alert-danger">
+        <div class="alert alert-danger text-center">
           <%= i %>
         </div>
         <% } %>
           <% } %>
-            <%- include('partials/bootstrap.ejs'); %>
+            <%- include('partials/bootstrap'); %>
   </body>
 
 </html>

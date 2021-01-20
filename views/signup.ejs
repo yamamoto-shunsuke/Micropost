@@ -22,13 +22,9 @@
             </div>
         </form>
       </div>
-      <% if (message) { %>
-        <div class="alert alert-danger text-center">
-          <%= message %>
-        </div>
-        <% } %>
     </div>
-    <%- include('partials/bootstrap.ejs'); %>
+    <%- include('partials/message'); %>
+    <%- include('partials/bootstrap'); %>
   </body>
 
 </html>

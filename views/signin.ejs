@@ -1,41 +1,33 @@
 <!DOCTYPE html>
 <html lang="ja">
 
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-            integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-            crossorigin="anonymous" />
-        <%- include('header') %>
-    </head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous" />
+    <%- include('header') %>
+  </head>
 
-    <body>
-        <div class="border-bottom">
-            <div class="container col-sm-6">
-                <h1 class="text-center">
-                    <%= title %>
-                </h1>
-                <form method="POST" action="/accounts/signin">
-                    <h4>Email</h4>
-                    <input required type="text" id="email" name="email" class="col-sm-12 form-control" />
-                    <br>
-                    <h4>Password</h4>
-                    <input required type="password" id="password" name="password" class="col-sm-12 form-control" />
-                    <br />
-                    <input type="submit" class="btn btn-primary col-sm-12 mb-5" value="Sign in" />
-            </div>
-            </form>
-        </div>
-        </div>
-        <% if (message && message.length !==0) { %>
-            <% for(let i of message) { %>
-                <div class="alert alert-danger">
-                    <%= i %>
-                </div>
-                <% } %>
-                    <% } %>
-                        <%- include('partials/bootstrap.ejs'); %>
-    </body>
+  <body>
+    <div class="border-bottom">
+      <div class="container col-sm-6">
+        <h1 class="text-center">
+          <%= title %>
+        </h1>
+        <form method="POST" action="/accounts/signin">
+          <h4>Email</h4>
+          <input required type="text" id="email" name="email" class="col-sm-12 form-control" />
+          <br>
+          <h4>Password</h4>
+          <input required type="password" id="password" name="password" class="col-sm-12 form-control" />
+          <br />
+          <input type="submit" class="btn btn-primary col-sm-12 mb-5" value="Sign in" />
+      </div>
+      </form>
+      <%- include('partials/message'); %>
+    </div>
+    <%- include('partials/bootstrap'); %>
+  </body>
 
 </html>
