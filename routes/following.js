@@ -8,9 +8,18 @@ const relationships = require('../models/relationships');
 router.get("/:user_id/following", async function (req, res, next) {
   const user_id = req.params.user_id;
 
-  following_id = await relationships.followers_count(user_id);
-  followed_id = await relationships.following_count(user_id);
-  microposts = await relationships.micropost_count(user_id);
+  following_id = await relationships.followers_count(user_id)
+  .catch(function (error) {
+    res.render('following', { error: error});
+  });
+  followed_id = await relationships.following_count(user_id)
+  .catch(function (error) {
+    res.render('following', { error: error});
+  });
+  microposts = await relationships.micropost_count(user_id)
+  .catch(function (error) {
+    res.render('following', { error: error});
+  });
 
   res.render("following", { title: "Following", isLoggedIn: req.isAuthenticated(), follows: followed_id, user_name: req.user.name, user_id: req.user.id, followed_id: followed_id.length, follower_id: following_id.length,microposts: microposts.length});
 

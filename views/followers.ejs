@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
       integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <%- include('header',{user_name: user_name, user_id: user_id}) %>
-      <title>Followers</title>
+    <% if(typeof error==='undefined' ){ %>
+      <%- include('header',{user_name: user_name, user_id: user_id}) %>
+        <title>Followers</title>
   </head>
 
   <body>
@@ -38,7 +39,12 @@
       <br>
       <br>
     </div>
-    <%- include('partials/bootstrap'); %>
+    <% } else { %>
+      <h1>
+        <%=error %>
+      </h1>
+      <% } %>
+        <%- include('partials/bootstrap'); %>
   </body>
 
 </html>

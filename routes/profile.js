@@ -20,14 +20,23 @@ router.get('/:user_id', async function (req, res, next) {
       }
     })
     .catch(function (error) {
-      console.error(error);
+      res.render('profile', { error: error });
     });
 
-  following_id = await relationships.followers_count(user_id);
+  following_id = await relationships.followers_count(user_id)
+    .catch(function (error) {
+      res.render('profile', { error: error });
+    });
 
-  followed_id = await relationships.following_count(user_id);
+  followed_id = await relationships.following_count(user_id)
+    .catch(function (error) {
+      res.render('profile', { error: error });
+    });
 
-  microposts = await relationships.micropost_count(user_id);
+  microposts = await relationships.micropost_count(user_id)
+    .catch(function (error) {
+      res.render('profile', { error: error });
+    });
 
   if (microposts.length !== 0) {
     res.render("profile", { isLoggedIn: req.isAuthenticated(), user_name: microposts[0].name, contentList: microposts, user_id: microposts[0].id, page_location: req.params.user_id, isotherspage: req.user.id != req.params.user_id, isfollow: req.session.isfollow, microposts: microposts.length, followed_id: following_id.length, follower_id: followed_id.length });
@@ -39,7 +48,7 @@ router.get('/:user_id', async function (req, res, next) {
         res.render("profile", { isLoggedIn: req.isAuthenticated(), user_name: rows[0].name, contentList: null, user_id: rows[0].id, page_location: req.params.user_id, isotherspage: req.user.id != req.params.user_id, isfollow: req.session.isfollow, microposts: rows.length, followed_id: following_id.length, follower_id: followed_id.length });
       })
       .catch(function (error) {
-        console.error(error);
+        res.render('profile', { error: error });
       });
   }
 })
@@ -57,7 +66,7 @@ router.post('/:user_id', function (req, res, next) {
       })
       .catch(function (error) {
         console.error(error);
-        res.redirect(`/users/${req.params.user_id}`);
+        res.render('profile', { error: error });
       });
   } else {
     knex("relationships")
@@ -67,7 +76,7 @@ router.post('/:user_id', function (req, res, next) {
       })
       .catch(function (error) {
         console.error(error);
-        res.redirect(`/users/${req.params.user_id}`);
+        res.render('profile', { error: error });
       });
   }
 })

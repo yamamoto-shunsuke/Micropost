@@ -12,12 +12,8 @@ router.get('/', function(req, res, next) {
     res.render("users", {title: "All Users",user_name: req.user.name,user_id: req.user.id,userlist: rows,isLoggedIn: req.isAuthenticated()});
   })
   .catch(function (error) {
-    console.error(error);
+    res.render('users', { error: error});
   });
-});
-
-router.post('/', function(req, res, next) {
-
 });
 
 module.exports = router;

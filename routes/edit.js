@@ -32,7 +32,7 @@ router.post("/", async function (req, res, next) {
        res.redirect("/logout");
       })
       .catch(function (error) {
-        console.error(error);
+        res.render('edit', { error: error});
       });
 
 });

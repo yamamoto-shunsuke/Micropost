@@ -10,7 +10,8 @@
       integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="format-detection" content="telephone=no" />
-    <%- include('header') %>
+    <% if(typeof error==='undefined' ){ %>
+      <%- include('header') %>
   </head>
 
   <body>
@@ -19,11 +20,18 @@
     </h1>
     <% userlist.forEach(function(contentItem) { %>
       <div class="container">
-        <p><a href="/users/<%= contentItem.id %>"><%= contentItem.name %></a></p>
-          <p><a href="/delete/<%= contentItem.id %>">delete</a></p>
+        <p><a href="/users/<%= contentItem.id %>">
+            <%= contentItem.name %>
+          </a></p>
+        <p><a href="/delete/<%= contentItem.id %>">delete</a></p>
       </div>
-      <% }); %> 
-        <%- include('partials/bootstrap'); %>
+      <% }); %>
+        <% } else { %>
+          <h1>
+            <%=error %>
+          </h1>
+          <% } %>
+            <%- include('partials/bootstrap'); %>
   </body>
 
 </html>

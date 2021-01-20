@@ -21,20 +21,27 @@ router.get('/', async function (req, res, next) {
     const user_id = req.user.id;
     const user_name = req.user.name;
 
-    following_id = await relationships.followers_count(user_id);
+    following_id = await relationships.followers_count(user_id)
+      .catch(function (error) {
+        res.render('index', { error: error });
+      });
 
-    followed_id = await relationships.following_count(user_id);
+
+    followed_id = await relationships.following_count(user_id)
+      .catch(function (error) {
+        res.render('index', { error: error });
+      });
 
     knex('microposts')
       .where('user_id', req.user.id)
       .then(function (rows) {
-        res.render('index', { title: "Profile App", isLoggedIn: req.isAuthenticated(), user_id: user_id, user_name: user_name, contentList: rows, microposts: rows.length, followed_id: followed_id.length, follower_id: following_id.length});
+        res.render('index', { title: "Profile App", isLoggedIn: req.isAuthenticated(), user_id: user_id, user_name: user_name, contentList: rows, microposts: rows.length, followed_id: followed_id.length, follower_id: following_id.length });
       })
       .catch(function (error) {
-        console.log(error);
+        res.render('index', { error: error });
       });
   } else {
-    res.render('index', { title: "Welcome to the MicroPost App", isLoggedIn: req.isAuthenticated(), user_name: false});
+    res.render('index', { title: "Welcome to the MicroPost App", isLoggedIn: req.isAuthenticated(), user_name: false });
   }
 });
 
@@ -49,8 +56,7 @@ router.post("/", (req, res, next) => {
       res.redirect("/");
     })
     .catch(function (error) {
-      console.error(error);
-      res.redirect("/");
+      res.render('index', { error: error });
     });
 
 });

@@ -11,9 +11,8 @@ router.get('/:id', function (req, res, next) {
   .then(function(rows){
     res.redirect('/');
   })
-  
-  .catch(function(error) {
-    console.error(error)
+  .catch(function (error) {
+    res.render('delete', { error: error});
   });
 });
 
