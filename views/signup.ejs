@@ -16,21 +16,10 @@
           <%= title %>
         </h1>
         <form action="/accounts/signup" method="post" class="board-form">
-          <h5>Username</h4>
-            <input required type="text" id="username" name="username" class="col-sm-12 form-control" />
-            <br>
-            <h5>Email</h4>
-              <input required type="text" id="email" name="email" class="col-sm-12 form-control" />
-              <br>
-              <h5>Password</h4>
-                <input required type="password" id="password" name="password" class="col-sm-12 form-control" />
-                <br>
-                <h5>Confirmation</h5>
-                <input required type="password" id="confirm" name="confirm" class="col-sm-12 form-control" />
-                <br>
-                <div align="center">
-                  <input class="btn btn-primary col-sm-12 mb-3" type="submit" value="Sign Up">
-                </div>
+          <%- include('partials/relationships') %>
+            <div align="center">
+              <input class="btn btn-primary col-sm-12 mb-3" type="submit" value="Sign Up">
+            </div>
         </form>
       </div>
       <% if (message) { %>
