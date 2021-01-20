@@ -26,5 +26,17 @@ async function following_count(user_id) {
 
 }
 
+async function micropost_count(user_id) {
 
-module.exports = {followers_count, following_count};
+  return await knex
+    .from('users')
+    .join('microposts', 'users.id', '=', 'microposts.user_id')
+    .where({ user_id: user_id })
+    .then(function (rows) {
+      return rows;
+    });
+
+}
+
+
+module.exports = {followers_count, following_count, micropost_count};

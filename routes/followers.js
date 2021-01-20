@@ -10,8 +10,9 @@ router.get("/:user_id/followers", async function (req, res, next) {
 
   following_id = await relationships.followers_count(user_id);
   followed_id = await relationships.following_count(user_id);
+  microposts = await relationships.micropost_count(user_id);
 
-  res.render("followers", { title: "Followers", isLoggedIn: req.isAuthenticated(), followers: following_id , user_name: req.user.name, user_id: req.user.id, followed_id: followed_id.length, follower_id: following_id.length });
+  res.render("followers", { title: "Followers", isLoggedIn: req.isAuthenticated(), followers: following_id , user_name: req.user.name, user_id: req.user.id, followed_id: followed_id.length, follower_id: following_id.length,microposts: microposts.length});
 
 });
 
