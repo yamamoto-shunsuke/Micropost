@@ -13,95 +13,47 @@
     <div class="mt-5">
       <div class="container">
         <div class="row">
-          <div class="col-sm-6">
-            <form action="/" method="post">
-              <div class="row">
-                <div class="col-sm-2">
-                  <a href="/users/<%=user_id %>"> <img
-                      src="https://ja.gravatar.com/userimage/198854425/da5b60637a0811fde3ed6b701c8473cd.png?size=60" />
-                  </a>
-                </div>
-                <div class="col-sm-10">
-                  <h2>
-                    <%= user_name %>
-                  </h2>
-                  <h5><a href="/users/<%=user_id %>">View My Profile</a></h5>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-1">
-                  <h5>
-                    <%=microposts %>
-                  </h5>
-                </div>
-                <div class="col-sm-11">
-                  <h5>microposts</h5>
-                </div>
-                <div style="color:gray" class="col-sm-3">
-                  <a href="/users/<%=user_id %>/following">
-                    <h5 style="color:gray">
-                      <%=followed_id %>
-                    </h5>
-                  </a>
-                  <h5>Following</h5>
-                </div>
-                <div style="color:gray" class="col-sm-9">
-                  <a href="/users/<%=user_id %>/followers">
-                    <h5 style="color:gray">
-                      <%=follower_id %>
-                    </h5>
-                  </a>
-                  <h5>Followers</h5>
-                </div>
-              </div>
-              <br>
-              <textarea name="content" placeholder="Compose new micropost..." cols="50" rows="4"></textarea>
-              <br>
-              <input class="btn btn-primary col-sm-9" type="submit" value="Post" />
-              <br>
-              <br>
-            </form>
-          </div>
-          <div class="col-sm-6">
-            <% if(isotherspage){ %>
-              <form action="/users/<%= page_location %>" method="post">
-                <% if(isfollow){ %>
-                  <input class="btn btn-primary col-sm-12" type="submit" value="Remove" />
-                  <% } else{ %>
-                    <input class="btn btn-primary col-sm-12" type="submit" value="Follow" />
-                    <% } %>
-              </form>
-              <br>
-              <% } %>
-                <% if(contentList !==null) { %>
-                  <% contentList.forEach(function(contentItem) { %>
-                    <div class="border-bottom mb-3">
-                      <div class="row">
-                        <div class="col-sm-2">
-                          <a href="/users/<%=user_id %>"> <img
-                              src="https://ja.gravatar.com/userimage/198854425/da5b60637a0811fde3ed6b701c8473cd.png?size=60" />
-                          </a>
-                          <br>
-                          <br>
-                          <input class="btn btn-primary" type="submit" value="delete">
-                        </div>
-                        <div class="col-sm-10">
-                          <h5><a href="/users/<%=user_id %>">
-                              <%= user_name %>
-                            </a></h5>
-                          <p>
-                            <%= contentItem.content %>
-                          </p>
-                          <p>
-                            <font color="gray">Posted ago.</font>
-                          </p>
-                        </div>
-                      </div>
-                      <br>
-                    </div>
-                    <% }); %>
+          <%- include('partials/profile') %>
+            <div class="col-sm-6">
+              <% if(isotherspage){ %>
+                <form action="/users/<%= page_location %>" method="post">
+                  <% if(isfollow){ %>
+                    <input class="btn btn-primary col-sm-12" type="submit" value="Remove" />
+                    <% } else{ %>
+                      <input class="btn btn-primary col-sm-12" type="submit" value="Follow" />
                       <% } %>
-          </div>
+                </form>
+                <br>
+                <% } %>
+                  <% if(contentList !==null) { %>
+                    <% contentList.forEach(function(contentItem) { %>
+                      <div class="border-bottom mb-3">
+                        <div class="row">
+                          <div class="col-sm-2">
+                            <a href="/users/<%=user_id %>"> <img
+                                src="https://ja.gravatar.com/userimage/198854425/da5b60637a0811fde3ed6b701c8473cd.png?size=60" />
+                            </a>
+                            <br>
+                            <br>
+                            <input class="btn btn-primary" type="submit" value="delete">
+                          </div>
+                          <div class="col-sm-10">
+                            <h5><a href="/users/<%=user_id %>">
+                                <%= user_name %>
+                              </a></h5>
+                            <p>
+                              <%= contentItem.content %>
+                            </p>
+                            <p>
+                              <font color="gray">Posted ago.</font>
+                            </p>
+                          </div>
+                        </div>
+                        <br>
+                      </div>
+                      <% }); %>
+                        <% } %>
+            </div>
         </div>
       </div>
     </div>
